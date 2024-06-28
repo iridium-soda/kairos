@@ -104,7 +104,7 @@ Check status:
 service postgresql status
 ```
 
-这时候会显示
+这时候如果显示
 
 ```
 16/main (port 5432): down
@@ -139,18 +139,16 @@ git clone https://github.com/ProvenanceAnalytics/kairos.git
 ```shell
 conda create -n kairos python=3.9
 conda activate kairos
-conda install psycopg2
-conda install tqdm
-pip install scikit-learn==1.2.0
-pip install networkx==2.8.7
-pip install xxhash==3.2.0
-pip install graphviz==0.20.1
+conda install psycopg2 tqdm
+conda install scikit-learn==1.2.0 
+conda install networkx==2.8.7 numpy==1.22.4 -c conda-forge
+pip install xxhash==3.2.0 graphviz==0.20.1
+
 
 # PyTorch GPU version
 conda install pytorch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 pytorch-cuda=11.7 -c pytorch -c nvidia
 pip install torch_geometric==2.0.0
 pip install pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -f https://data.pyg.org/whl/torch-1.13.0+cu117.html
-
 ```
 
 如果网站被墙，需要手动下载并安装
