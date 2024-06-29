@@ -5,7 +5,7 @@
 ########################################################
 
 # The directory of the raw logs
-raw_dir = "/the/absolute/path/of/cadets_e3/"
+raw_dir = "/raw_data/"
 
 # The directory to save all artifacts
 artifact_dir = "./artifact/"
