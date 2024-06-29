@@ -23,6 +23,10 @@ KAIROS 是针对整个系统的图级别（？）溯源图异常检测工作，�
 该工作预定在CUDA环境下运行，使用数据集为DARPA-TC-E3-CADET/THEIA，StreamSpot。
 
 
+安装方式有完全手动和部分使用脚本两种模式。默认为全手动，使用脚本的模式在不同的地方标注。此外还有使用镜像直接拉起容器的方法，但镜像还没有公开，并且镜像非常大，建议使用半自动方式安装。总体流程如下：
+
+![image](https://github.com/iridium-soda/kairos/assets/32727642/25ed9eb9-87ba-4dbb-a7b4-ebef1bea0724)
+
 
 ## CADETS
 
@@ -122,6 +126,22 @@ pg_ctlcluster 16 main start
 16/main (port 5432): online
 ```
 
+修改用户检查策略：
+
+```shell
+vim /etc/postgresql/16/main/pg_hba.conf
+```
+
+```diff
+-local   all             postgres                                md5
++local   all             postgres                                trust
+```
+
+```shell
+service postgresql restart
+```
+
+
 #### GraphViz
 
 ```shell
@@ -148,14 +168,23 @@ pip install xxhash==3.2.0 graphviz==0.20.1
 # PyTorch GPU version
 conda install pytorch==1.13.1 torchvision==0.14.1 torchaudio==0.13.1 pytorch-cuda=11.7 -c pytorch -c nvidia
 pip install torch_geometric==2.0.0
-pip install pyg_lib torch_scatter torch_sparse torch_cluster torch_spline_conv -f https://data.pyg.org/whl/torch-1.13.0+cu117.html
+```
+手动安装whl中的内容
+```shell
+pip install ./DARPA/CADETS_E3/install/whls/*.whl
 ```
 
-如果网站被墙，需要手动下载并安装
+#### Python env自动方法
 
 ```shell
-pip install /path/to/your/file.whl
+conda env create -f ./DARPA/CADETS_E3/environment.yml
 ```
+之后手动安装whl中的内容
+```shell
+pip install ./DARPA/CADETS_E3/install/whls/*.whl
+```
+
+
 
 ### 配置数据库
 
@@ -281,6 +310,31 @@ vim /etc/postgresql/16/main/pg_hba.conf
 service postgresql restart && service postgresql status
 ```
 
+### 自动化配置数据库
+
+切换用户到postgres
+
+```shell
+su - postgres
+```
+
+启动命令行
+
+```shell
+psql
+```
+
+创建数据库并连接
+
+```shell
+create database tc_cadet_dataset_db;
+\connect tc_cadet_dataset_db;
+```
+
+执行脚本
+```shell
+./DARPA/CADETS_E3/install/init.sql
+```
 
 
 ### 配置和运行
