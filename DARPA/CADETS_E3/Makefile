@@ -30,3 +30,4 @@ anomaly_detection: anomalous_queue evaluation
 
 pipeline: preprocess deep_graph_learning anomaly_detection attack_investigation
 
+pretrained: preprocess test anomaly_detection

@@ -221,7 +221,7 @@ def store_event(file_path, cur, connect, reverse, nodeid2msg, subject_uuid2hash,
                                 datalist.append(
                                     [subjectId, nodeid2msg[subjectId], relation_type, objectId, nodeid2msg[objectId],
                                      time_rec])
-
+    print("Saving to postgresql")
     sql = '''insert into event_table
                          values %s
             '''

@@ -8,6 +8,10 @@ import logging
 from kairos_utils import *
 from config import *
 from model import *
+import os
+
+# Create artifact directory if necessary
+os.makedirs(artifact_dir, exist_ok=True)
 
 # Setting for logging
 logger = logging.getLogger("reconstruction_logger")
@@ -158,7 +162,7 @@ def load_data():
 
 if __name__ == "__main__":
     logger.info("Start logging.")
-
+    check_device_info()
     # load the map between nodeID and node labels
     cur, _ = init_database_connection()
     nodeid2msg = gen_nodeid2msg(cur=cur)
@@ -167,7 +171,7 @@ if __name__ == "__main__":
     graph_4_3, graph_4_4, graph_4_5, graph_4_6, graph_4_7 = load_data()
 
     # load trained model
-    memory, gnn, link_pred, neighbor_loader = torch.load(f"{models_dir}/models.pt",map_location=device)
+    memory, gnn, link_pred, neighbor_loader = torch.load(f"/root/preset/cadets3_models.pt",map_location=device)
 
     # Reconstruct the edges in each day
     test(inference_data=graph_4_3,

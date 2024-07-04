@@ -105,7 +105,7 @@ def init_models(node_feat_size):
 
 if __name__ == "__main__":
     logger.info("Start logging.")
-
+    check_device_info()
     # Load data for training
     train_data = load_train_data()
 

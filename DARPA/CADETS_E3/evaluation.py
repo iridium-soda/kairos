@@ -96,7 +96,7 @@ def calc_attack_edges():
 
 if __name__ == "__main__":
     logger.info("Start logging.")
-
+    check_device_info()
     # Validation date
     anomalous_queue_scores = []
     history_list = torch.load(f"{artifact_dir}/graph_4_5_history_list")

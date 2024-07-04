@@ -11,7 +11,7 @@ raw_dir = "/raw_data/"
 artifact_dir = "./artifact/"
 
 # The directory to save the vectorized graphs
-graphs_dir = artifact_dir + "graphs/"
+graphs_dir = artifact_dir + "graphs"
 
 # The directory to save the models
 models_dir = artifact_dir + "models/"

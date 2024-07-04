@@ -1,5 +1,7 @@
 # KAIROS installation guide
 
+[TOC]
+
 ## Whatis
 
 KAIROS 是针对整个系统的图级别（？）溯源图异常检测工作，提供了无先验知识的0day检测并提供攻击场景重建。见：
@@ -23,7 +25,7 @@ KAIROS 是针对整个系统的图级别（？）溯源图异常检测工作，�
 该工作预定在CUDA环境下运行，使用数据集为DARPA-TC-E3-CADET/THEIA，StreamSpot。
 
 
-安装方式有完全手动和部分使用脚本两种模式。默认为全手动，使用脚本的模式在不同的地方标注。此外还有使用镜像直接拉起容器的方法，但镜像还没有公开，并且镜像非常大，建议使用半自动方式安装。总体流程如下：
+安装方式有完全手动和部分使用脚本两种模式。默认为全手动，使用脚本的模式在不同的地方标注。此外还有使用镜像直接拉起容器的方法，但镜像还没有公开，并且非常大，建议使用半自动方式安装。总体流程如下：
 
 ![image](https://github.com/iridium-soda/kairos/assets/32727642/25ed9eb9-87ba-4dbb-a7b4-ebef1bea0724)
 
@@ -361,6 +363,14 @@ cd kairos/DARPA/CADETS_E3
 make pipeline
 ```
 
+### 运行预训练模型
+
+由于训练模型消耗时间极长且资源占用大，原作者给出了预训练模型可以直接评估效果。从[Google Drive](https://drive.google.com/drive/u/0/folders/1YAKoO3G32xlYrCs4BuATt1h_hBvvEB6C)下载预训练模型，并在[test.py](https://github.com/ProvenanceAnalytics/kairos/blob/37044bfd30393c0a0543d3b98f2049cd039cc013/DARPA/CADETS_E3/test.py#L170)这里填入模型路径，随后执行：
+```shell
+make pretrained
+```
+### 运行解释
+1. `preprocess`: 创建数据文件夹，创建数据库，嵌入图
 ### Troubleshooting
 
 #### Import error

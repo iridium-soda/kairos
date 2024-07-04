@@ -129,7 +129,7 @@ def gen_vectorized_graphs(cur, node2higvec, rel2vec, logger):
 
 if __name__ == "__main__":
     logger.info("Start logging.")
-
+    check_device_info()
     os.system(f"mkdir -p {graphs_dir}")
 
     cur, _ = init_database_connection()

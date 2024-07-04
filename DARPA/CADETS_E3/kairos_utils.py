@@ -8,6 +8,7 @@ import os.path as osp
 import os
 import copy
 import torch
+from torch import cuda
 from torch.nn import Linear
 from sklearn.metrics import average_precision_score, roc_auc_score
 from torch_geometric.data import TemporalData
@@ -154,3 +155,16 @@ def hashgen(l):
 
 
 
+def check_device_info():
+    """
+    To check if the current environment is using GPU and print its info
+    """
+    if cuda.is_available():
+        # Checking if CUDA is available and thus a GPU can be used.
+        gpu_count = cuda.device_count()
+        print(f"{gpu_count} GPU(s) available.")
+        for i in range(gpu_count):
+            print(f"GPU {i}: {cuda.get_device_name(i)}")
+    else:
+        # This part of the code pays homage to the initial problem Alex faced, indicating that only the CPU is available.
+        print("No GPU available, using CPU instead.")
