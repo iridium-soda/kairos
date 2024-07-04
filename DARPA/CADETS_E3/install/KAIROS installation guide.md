@@ -364,6 +364,8 @@ make pipeline
 ```shell
 make pretrained
 ```
+
+> NOTE:如果后续需要训练模型，则需要将该行重置以避免未知问题：`memory, gnn, link_pred, neighbor_loader = torch.load(f"{models_dir}/models.pt",map_location=device)`
 ### Troubleshooting
 
 #### Import error
