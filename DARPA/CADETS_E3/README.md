@@ -27,3 +27,14 @@ nohup make pipeline > output.txt 2>&1 &
 ```shell
 nohup make pretrained > output.txt 2>&1 &
 ```
+
+### Trouble shooting
+
+如果报 `permission denied for schema public`之类的问题，执行下面的命令：
+```shell
+su - postgres
+psql
+create database tc_cadet_dataset_db;
+\connect tc_cadet_dataset_db;
+grant all on schema public to root;
+```

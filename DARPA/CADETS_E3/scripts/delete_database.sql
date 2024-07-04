@@ -1,13 +1,11 @@
--- 终止所有连接到目标数据库的会话
-SELECT pg_terminate_backend(pg_stat_activity.pid)
-FROM pg_stat_activity
-WHERE pg_stat_activity.datname = 'tc_cadet_dataset_db'
-  AND pid <> pg_backend_pid();
+-- 删除表
+DROP TABLE IF EXISTS event_table;
+DROP TABLE IF EXISTS file_node_table;
+DROP TABLE IF EXISTS netflow_node_table;
+DROP TABLE IF EXISTS subject_node_table;
+DROP TABLE IF EXISTS node2id;
 
--- 删除目标数据库
-DROP DATABASE tc_cadet_dataset_db;
-
--- 重新创建目标数据库
+-- 重新创建表
 create table event_table
 (
     src_node      varchar,

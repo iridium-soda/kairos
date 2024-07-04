@@ -1,0 +1,34 @@
+nohup: ignoring input
+echo "============================================"
+============================================
+time1=
+echo Clean start:ime1
+Clean start:ime1
+bash ./scripts/clean.sh
+ pg_terminate_backend 
+----------------------
+(0 rows)
+
+psql:scripts/delete_database.sql:8: ERROR:  database "tc_cadet_dataset_db" does not exist
+psql:scripts/delete_database.sql:20: ERROR:  relation "event_table" already exists
+ALTER TABLE
+psql:scripts/delete_database.sql:23: ERROR:  relation "event_table__id_uindex" already exists
+GRANT
+psql:scripts/delete_database.sql:32: ERROR:  relation "file_node_table" already exists
+ALTER TABLE
+psql:scripts/delete_database.sql:45: ERROR:  relation "netflow_node_table" already exists
+ALTER TABLE
+psql:scripts/delete_database.sql:53: ERROR:  relation "subject_node_table" already exists
+ALTER TABLE
+psql:scripts/delete_database.sql:64: ERROR:  relation "node2id" already exists
+ALTER TABLE
+psql:scripts/delete_database.sql:67: ERROR:  relation "node2id_hash_id_uindex" already exists
+Database tc_cadet_dataset_db successfully reset.
+time2=
+echo Clean ends:ime2
+Clean ends:ime2
+timestamp1=
+timestamp2=
+diff=)
+/bin/sh: 1: Syntax error: ")" unexpected
+make: *** [Makefile:103: clean] Error 2
