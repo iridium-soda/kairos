@@ -14,6 +14,8 @@ make clean
 ### Run 
 
 全量测试（可能消耗大量的时间，约1天左右）：
+
+**NOTE:注意检查模型路径是否重置正确** 见[Guidelines](https://github.com/iridium-soda/kairos/blob/main/DARPA/CADETS_E3/install/KAIROS%20installation%20guide.md#%E8%BF%90%E8%A1%8C%E9%A2%84%E8%AE%AD%E7%BB%83%E6%A8%A1%E5%9E%8B)
 ```shell
 nohup make pipeline > output.txt 2>&1 &
 ```
