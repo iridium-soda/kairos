@@ -1,5 +1,6 @@
 # KAIROS installation guide
 
+[TOC]
 ## Whatis
 
 KAIROS 是针对整个系统的图级别（？）溯源图异常检测工作，提供了无先验知识的0day检测并提供攻击场景重建。见：
@@ -135,12 +136,17 @@ vim /etc/postgresql/16/main/pg_hba.conf
 ```diff
 -local   all             postgres                                md5
 +local   all             postgres                                trust
++local   all             root                                    trust
 ```
 
 ```shell
 service postgresql restart
 ```
+#### Timer
 
+```shell
+apt install time
+```
 
 #### GraphViz
 
@@ -199,10 +205,16 @@ su - postgres
 ```shell
 psql
 ```
-
+给root用户授权
+```sql
+CREATE ROLE root WITH LOGIN;
+ALTER ROLE root WITH PASSWORD NULL;
+grant all on schema public to root;
+```
 创建数据库并连接
 
-```shell
+```sql
+
 create database tc_cadet_dataset_db;
 \connect tc_cadet_dataset_db;
 ```
@@ -225,8 +237,8 @@ create table event_table
 修改和配置
 
 ```sql
-alter table event_table owner to postgres;
-create unique index event_table__id_uindex on event_table (_id); grant delete, insert, references, select, trigger, truncate, update on event_table to postgres;
+alter table event_table owner to root;
+create unique index event_table__id_uindex on event_table (_id); grant delete, insert, references, select, trigger, truncate, update on event_table to root;
 ```
 
 创建文件表
@@ -240,7 +252,7 @@ create table file_node_table
     constraint file_node_table_pk
         primary key (node_uuid, hash_id)
 );
-alter table file_node_table owner to postgres;
+alter table file_node_table owner to root;
 ```
 
 创建网络流列表
@@ -257,7 +269,7 @@ alter table file_node_table owner to postgres;
     constraint netflow_node_table_pk
         primary key (node_uuid, hash_id)
 );
-alter table netflow_node_table owner to postgres;
+alter table netflow_node_table owner to root;
 ```
 
 创建实体列表
@@ -269,7 +281,7 @@ create table subject_node_table
     hash_id   varchar,
     exec      varchar
 );
-alter table subject_node_table owner to postgres;
+alter table subject_node_table owner to root;
 ```
 
 创建node2id列表
@@ -284,7 +296,7 @@ create table node2id
     msg       varchar,
     index_id  bigint
 );
-alter table node2id owner to postgres;
+alter table node2id owner to root;
 ```
 
 创建索引
@@ -293,22 +305,7 @@ alter table node2id owner to postgres;
  create unique index node2id_hash_id_uindex on node2id (hash_id);
 ```
 
-为了解决数据库的认证问题，进行下面的配置：
 
-```shell
-vim /etc/postgresql/16/main/pg_hba.conf
-```
-
-```diff
--local   all             postgres                                md5
-+local   all             postgres                                trust
-```
-
-重启并检查运行状态
-
-```shell
-service postgresql restart && service postgresql status
-```
 
 ### 自动化配置数据库
 
@@ -361,6 +358,12 @@ cd kairos/DARPA/CADETS_E3
 make pipeline
 ```
 
+### 运行预训练模型
+
+由于训练模型消耗时间极长且资源占用大，原作者给出了预训练模型可以直接评估效果。从[Google Drive](https://drive.google.com/drive/u/0/folders/1YAKoO3G32xlYrCs4BuATt1h_hBvvEB6C)下载预训练模型，并在[test.py](https://github.com/ProvenanceAnalytics/kairos/blob/37044bfd30393c0a0543d3b98f2049cd039cc013/DARPA/CADETS_E3/test.py#L170)这里填入模型路径，随后执行：
+```shell
+make pretrained
+```
 ### Troubleshooting
 
 #### Import error

@@ -40,10 +40,11 @@ host = '/var/run/postgresql/'
 # host = None
 
 # Database user
-user = 'postgres'
-
+#user = 'postgres'
+user = 'root'
 # The password to the database user
-password = 'postgres'
+#password = 'postgres'
+password=None
 
 # The port number for Postgres
 port = '5432'

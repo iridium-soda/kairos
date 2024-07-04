@@ -1,7 +1,13 @@
-CREATE ROLE root WITH LOGIN;
-ALTER ROLE root WITH PASSWORD NULL;
-grant all on schema public to root;
+-- 终止所有连接到目标数据库的会话
+SELECT pg_terminate_backend(pg_stat_activity.pid)
+FROM pg_stat_activity
+WHERE pg_stat_activity.datname = 'tc_cadet_dataset_db'
+  AND pid <> pg_backend_pid();
 
+-- 删除目标数据库
+DROP DATABASE tc_cadet_dataset_db;
+
+-- 重新创建目标数据库
 create table event_table
 (
     src_node      varchar,

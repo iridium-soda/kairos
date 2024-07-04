@@ -22,12 +22,15 @@ evaluation:
 attack_investigation:
 	python attack_investigation.py
 
+clean:
+	bash ./scripts/clean.sh
+
 preprocess: prepare create_database embed_graphs
 
 deep_graph_learning: train test
 
 anomaly_detection: anomalous_queue evaluation
 
-pipeline: preprocess deep_graph_learning anomaly_detection attack_investigation
+pipeline: clean preprocess deep_graph_learning anomaly_detection attack_investigation
 
-pretrained: preprocess test anomaly_detection
+pretrained: clean preprocess test anomaly_detection
