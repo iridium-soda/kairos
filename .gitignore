@@ -163,3 +163,4 @@ cython_debug/
 
 **/artifact/
 **/logs/
+DARPA/CADETS_E3/output.txt

@@ -168,6 +168,7 @@ conda activate kairos
 conda install psycopg2 tqdm
 conda install scikit-learn==1.2.0 
 conda install networkx==2.8.7 numpy==1.22.4 -c conda-forge
+conda install python-louvain
 pip install xxhash==3.2.0 graphviz==0.20.1
 
 
